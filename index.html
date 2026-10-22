@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1E2A4A">
+<title>ABVRP Academy</title>
+<meta name="description" content="ABVRP Academy — প্রশ্ন উত্তর প্ল্যাটফর্ম">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700;800;900&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.min.css">
+<link rel="stylesheet" href="style.css">
+
+<!-- ===================== MathJax (LaTeX) সংযোজন — শুরু ===================== -->
+<script>
+window.MathJax = {
+    tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        packages: {'[+]': ['cancel', 'bbox', 'color', 'boldsymbol', 'enclose', 'mhchem']}
+    },
+    loader: {
+        load: ['[tex]/cancel', '[tex]/bbox', '[tex]/color', '[tex]/boldsymbol', '[tex]/enclose', '[tex]/mhchem']
+    },
+    options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea'] },
+    // fontCache: 'none' ইচ্ছাকৃতভাবে ব্যবহার করা হয়েছে — এডমিনের PDF এক্সপোর্ট ফিচারে
+    // html2canvas দিয়ে প্রতিটি পেজ আলাদাভাবে ক্যাপচার হয়; MathJax-এর ডিফল্ট 'global' ফন্ট-ক্যাশ
+    // পদ্ধতিতে সূত্রগুলো <use> ট্যাগ দিয়ে একটা আলাদা জায়গায় রাখা glyph-কে রেফার করে, যা html2canvas
+    // ঠিকভাবে ক্যাপচার করতে পারে না (ফলে PDF-এ সূত্র ফাঁকা দেখাতে পারত)। 'none' দিলে প্রতিটি সূত্র
+    // নিজের মধ্যেই সম্পূর্ণ self-contained থাকে, তাই স্ক্রিনে দেখানো, ব্রাউজার প্রিন্ট এবং
+    // html2canvas — তিন জায়গাতেই নির্ভরযোগ্যভাবে দেখা যায়।
+    svg: { mtextInheritFont: true, fontCache: 'none' },
+    startup: { typeset: false }
+};
+</script>
+<script>
+// $...$ এর ভেতরে বাংলা টেক্সট থাকলে MathJax render এর আগে অটোমেটিক \text{} দিয়ে wrap করবে
+// (নাহলে বাংলা অক্ষর LaTeX ইটালিক ভেরিয়েবল হিসেবে ভুলভাবে রেন্ডার হয়)
+(function() {
+    function wrapBengaliInText(node) {
+        if (!node) return;
+        const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+        const textNodes = [];
+        while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+        textNodes.forEach(textNode => {
+            const parent = textNode.parentElement;
+            if (!parent) return;
+            const tag = parent.tagName;
+            if (['SCRIPT', 'STYLE', 'TEXTAREA'].includes(tag)) return;
+
+            const text = textNode.textContent;
+            if (!text.includes('$')) return;
+
+            const newText = text.replace(/\$([^$]+)\$/g, (match, inner) => {
+                // বাংলা Unicode range: \u0980-\u09FF
+                const wrapped = inner.replace(/([\u0980-\u09FF]+)/g, '\\text{$1}');
+                return '$' + wrapped + '$';
+            });
+
+            if (newText !== text) {
+                textNode.textContent = newText;
+            }
+        });
+    }
+
+    const waitForMathJax = setInterval(() => {
+        if (window.MathJax && MathJax.typesetPromise) {
+            clearInterval(waitForMathJax);
+            const original = MathJax.typesetPromise.bind(MathJax);
+            MathJax.typesetPromise = function(elements) {
+                if (elements) {
+                    elements.forEach(el => wrapBengaliInText(el));
+                } else {
+                    wrapBengaliInText(document.body);
+                }
+                return original(elements);
+            };
+        }
+    }, 100);
+})();
+</script>
+<!-- tex-svg.js (CHTML নয়) ইচ্ছাকৃতভাবে ব্যবহার করা হয়েছে, কারণ html2canvas দিয়ে PDF এক্সপোর্টের
+     সময় CHTML আউটপুট (ওয়েবফন্ট-নির্ভর) ঠিকভাবে ক্যাপচার হয় না, কিন্তু SVG আউটপুট সাধারণ DOM/SVG
+     এলিমেন্ট হওয়ায় স্ক্রিন, প্রিন্ট এবং html2canvas — সবখানেই নির্ভরযোগ্যভাবে দেখা যায়। -->
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+  /* ===================== MathJax সহায়ক CSS ===================== */
+  mjx-container { overflow: visible !important; line-height: normal; }
+  mjx-container[jax="SVG"] { vertical-align: middle !important; }
+  .q-text mjx-container, .a-text mjx-container, .qa-answer-box mjx-container, .qa-quick-q mjx-container,
+  .pq-question mjx-container, .pq-answer mjx-container,
+  .print-q-text mjx-container, .print-a-text mjx-container {
+    max-width: 100%;
+  }
+</style>
+<!-- ===================== MathJax (LaTeX) সংযোজন — শেষ ===================== -->
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ===================== BOOT LOADER ===================== -->
+  <div id="boot-loader">
+    <div class="spinner" style="width:38px;height:38px;border-width:3px;"></div>
+  </div>
+
+  <!-- ===================== TOP LOADING BAR ===================== -->
+  <div id="top-loading-bar" class="hidden"></div>
+
+  <!-- ===================== LOGIN SCREEN ===================== -->
+  <section id="screen-login" class="screen" hidden>
+    <div class="login-wrap">
+      <div class="brand-mark">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="28" cy="28" r="27" stroke="#C99A3E" stroke-width="2"/>
+          <path d="M15 22L28 15L41 22L28 29L15 22Z" fill="#C0392B"/>
+          <path d="M20 25V34C20 34 23 37 28 37C33 37 36 34 36 34V25" stroke="#1E2A4A" stroke-width="2" stroke-linecap="round"/>
+          <line x1="41" y1="22" x2="41" y2="31" stroke="#1E2A4A" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h1 class="brand-title">ABVRP <span>Academy</span></h1>
+      <div class="login-version" id="login-version"></div>
+      <p class="brand-tag">প্রশ্ন করো। উত্তর লেখো। এগিয়ে যাও।</p>
+
+      <form id="login-form" class="login-form">
+        <label>মোবাইল নম্বর
+          <input type="tel" id="login-mobile" placeholder="মোবাইল নম্বর লিখুন" required autocomplete="username">
+        </label>
+        <label>পাসওয়ার্ড
+          <div class="password-field">
+            <input type="password" id="login-password" placeholder="পাসওয়ার্ড লিখুন" required autocomplete="current-password">
+            <button type="button" class="password-toggle" id="password-toggle" aria-label="পাসওয়ার্ড দেখান">
+              <i class="fa-solid fa-eye" id="eye-icon"></i>
+            </button>
+          </div>
+        </label>
+        <div id="login-error" class="form-error" hidden></div>
+        <button type="submit" class="btn btn-primary btn-block" id="login-submit">প্রবেশ করুন</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===================== BLOCKED SCREEN ===================== -->
+  <section id="screen-blocked" class="screen screen-black" hidden>
+    <div class="blocked-wrap">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#D9534F" stroke-width="1.6"/><line x1="6" y1="6" x2="18" y2="18" stroke="#D9534F" stroke-width="1.6"/></svg>
+      <h2 id="blocked-title">তোমাকে ব্লক করা হয়েছে</h2>
+      <p id="blocked-text">তুমি তোমার শিক্ষকের সাথে যোগাযোগ করো।</p>
+      <button class="btn btn-ghost-dark" id="blocked-logout">লগআউট</button>
+    </div>
+  </section>
+
+  <!-- ===================== MAIN APP ===================== -->
+  <section id="screen-main" class="screen" hidden>
+
+    <header class="topbar">
+      <div class="topbar-brand">
+        <span class="topbar-title">ABVRP <b>Academy</b></span>
+        <span class="topbar-version"><span id="app-version">v1.0.0</span> <button type="button" id="class-pill" class="class-pill" hidden></button></span>
+      </div>
+      <div class="topbar-user" id="topbar-avatar-wrap" title="প্রোফাইল দেখুন">
+        <button id="btn-bell" class="pdf-gen-shortcut-btn bell-btn" title="নোটিফিকেশন"><i class="fa-solid fa-bell"></i><span id="bell-badge" class="bell-badge" hidden>0</span></button>
+        <button id="btn-resources-shortcut" class="pdf-gen-shortcut-btn" title="গুরুত্বপূর্ণ লিংক / রিসোর্স" hidden><i class="fa-solid fa-globe"></i></button>
+        <img id="topbar-avatar" class="avatar avatar-sm" src="" alt="">
+        <span id="topbar-name"></span>
+      </div>
+    </header>
+
+    <div id="impersonation-banner" class="impersonation-banner" hidden></div>
+    <div id="update-strip" class="update-strip" hidden></div>
+
+    <main class="content" id="tab-dashboard" hidden>
+      <!-- Dashboard tab content injected by app.js -->
+    </main>
+
+    <main class="content" id="tab-qna">
+      <!-- QnA tab content injected by app.js -->
+    </main>
+
+    <main class="content" id="tab-tasks" hidden>
+      <!-- Daily Task tab content injected by app.js -->
+    </main>
+
+    <nav class="bottomnav">
+      <button class="nav-btn active" data-tab="qna">
+        <i class="fa-solid fa-comments"></i>
+        <span>QnA</span>
+      </button>
+      <button class="nav-btn" data-tab="dashboard">
+        <i class="fa-solid fa-chart-simple"></i>
+        <span>ড্যাশবোর্ড</span>
+      </button>
+      <button class="nav-btn" data-tab="tasks">
+        <i class="fa-solid fa-list-check"></i>
+        <span>ডেইলি টাস্ক</span>
+      </button>
+      <button class="nav-btn" id="nav-live" data-live="1" hidden>
+        <i class="fa-brands fa-youtube"></i>
+        <span>Live</span>
+      </button>
+    </nav>
+  </section>
+
+  <div id="toast" class="toast" hidden></div>
+  <div id="modal-root"></div>
+
+  <!-- ব্যাকগ্রাউন্ডে কী লোড/সেভ হচ্ছে তা দেখানোর ছোট্ট, নন-ব্লকিং ইন্ডিকেটর — app.js এর api()
+       ফাংশন থেকে স্বয়ংক্রিয়ভাবে চালু/বন্ধ হয়, কোনো স্ক্রিন বদলালেও এটা মুছে যায় না। -->
+  <div id="bg-activity-indicator">
+    <span class="bg-activity-spinner"></span>
+    <span id="bg-activity-text">লোড হচ্ছে...</span>
+  </div>
+</div>
+
+<div id="print-area"></div>
+
+<!-- ===================== লাইভ ক্লাস (ওভারলে) — আলাদা পেজ নয়, এই index.html-এর ভিতরেই; live.js চালায় ===================== -->
+<div id="lv-overlay" hidden role="dialog" aria-label="লাইভ ক্লাস">
+  <header class="lv-top">
+    <button type="button" class="lv-back" id="lv-back" title="অ্যাপে ফিরুন">‹ অ্যাপ</button>
+    <div class="lv-title"><i class="lv-dot" id="lv-dot"></i> লাইভ ক্লাস</div>
+    <div class="lv-who" id="lv-who"></div>
+  </header>
+  <main id="lv-root" class="lv-root"></main>
+  <div id="lv-toast" class="lv-toast" hidden></div>
+</div>
+
+<script async src="https://cse.google.com/cse.js?cx=45e8898138c0148d3"></script>
+<div id="cscostom-modal" style="display:none;position:fixed;inset:0;background:#F8F5FE;z-index:100000;overflow-y:auto;">
+  <button id="cscostom-close" onclick="closeCustomImageSearch()" style="position:fixed;top:10px;right:10px;width:34px;height:34px;background:#ff4757;color:white;border:none;border-radius:50%;cursor:pointer;font-size:18px;font-weight:bold;display:flex;align-items:center;justify-content:center;z-index:100001;box-shadow:0 2px 5px rgba(0,0,0,.2);">&times;</button>
+  <div style="max-width:950px;margin:60px auto;padding:20px;">
+    <div style="text-align:center;color:#4285F4;font-family:sans-serif;margin-bottom:15px;font-size:20px;">ছবি সার্চ করুন</div>
+    <div class="gcse-search" id="cscostom-google-engine"></div>
+  </div>
+  <button id="cscostom-load-btn" onclick="handleCustomSearchLoad()" style="position:fixed;bottom:20px;left:20px;padding:10px 16px;background:#198754;color:#fff;border:none;border-radius:30px;font-size:14px;cursor:pointer;z-index:100002;">Load</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+/* নিচের মেনুর আসল উচ্চতা মেপে CSS ভ্যারিয়েবলে বসায়; কিবোর্ড খুললে মেনু লুকায় */
+(function(){
+  var root=document.documentElement;
+  function measure(){
+    var nav=document.querySelector('.bottomnav');
+    if(nav&&nav.offsetHeight) root.style.setProperty('--nav-total', nav.offsetHeight+'px');
+  }
+  window.addEventListener('load',measure);
+  window.addEventListener('resize',measure);
+  window.addEventListener('orientationchange',function(){setTimeout(measure,250);});
+  if(window.ResizeObserver){ var t=setInterval(function(){var n=document.querySelector('.bottomnav'); if(n){new ResizeObserver(measure).observe(n);clearInterval(t);}},300); }
+  var base=window.innerHeight;
+  function kb(){
+    var vh=(window.visualViewport?window.visualViewport.height:window.innerHeight);
+    var typing=/^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement||{}).tagName||'');
+    document.body.classList.toggle('kb-open', typing && (base-vh)>150);
+  }
+  if(window.visualViewport) window.visualViewport.addEventListener('resize',kb);
+  window.addEventListener('focusout',function(){setTimeout(kb,100);});
+  window.addEventListener('resize',function(){ if(!document.body.classList.contains('kb-open')) base=Math.max(base,window.innerHeight); });
+})();
+</script>
+<!-- Firebase (Firestore + Anonymous Auth) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="live-config.js"></script>
+<script src="firebase-backend.js"></script>
+<script src="live.js"></script>
+<script src="app.js"></script>
+<script src="doubts.js"></script>
+<script src="notifs.js"></script>
+<script src="push.js"></script>
+</body>
+</html>

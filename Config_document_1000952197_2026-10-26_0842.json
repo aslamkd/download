@@ -1,0 +1,350 @@
+{
+  "version": 1,
+  "profileName": "Config_document_1000952197",
+  "exportedAt": 1792984330674,
+  "datasetTitle": "document:1000952197",
+  "associatedColumns": [
+    "Sansad",
+    "Village\/Para",
+    "Name of Head",
+    "Father_Husband",
+    "Contact No",
+    "Survey_P",
+    "Family_Members",
+    "1_Coutainers_inside",
+    "1_Action",
+    "2_Coutainers_out",
+    "2_Action",
+    "3_Larva",
+    "3_Action",
+    "4_Dry count",
+    "4_Action",
+    "5_drains_checked",
+    "6_drains_larva",
+    "6_Action",
+    "7_Soakpit_surv",
+    "8_Soakpit_larva",
+    "8_Action",
+    "9_Clean",
+    "10_Fever",
+    "Futher Action",
+    "Image 1",
+    "Image 2",
+    "Comments"
+  ],
+  "selectedColumns": [
+    "Village\/Para",
+    "Name of Head",
+    "Father_Husband",
+    "Contact No",
+    "Family_Members",
+    "1_Coutainers_inside",
+    "2_Coutainers_out",
+    "3_Larva",
+    "4_Dry count",
+    "5_drains_checked",
+    "6_drains_larva",
+    "7_Soakpit_surv",
+    "8_Soakpit_larva",
+    "9_Clean",
+    "10_Fever",
+    "Futher Action",
+    "Comments"
+  ],
+  "keyboardPreferences": {
+    "theme": "GBOARD_DARK",
+    "keyHeight": "NORMAL",
+    "soundEnabled": true,
+    "hapticEnabled": false,
+    "autoTabDelayMs": 150,
+    "autoAdvanceRow": true,
+    "errorSoundTone": 2,
+    "pauseAfterColumn": "1_Coutainers_inside",
+    "keepKeyboardVisible": true,
+    "ttsEnabled": false,
+    "ttsColumn": "Name of Head",
+    "ttsCustomSuffix": ".",
+    "ttsIncludeSerial": true,
+    "keyClickSoundEnabled": false,
+    "rowCompleteSoundEnabled": true,
+    "autoResumeOnKeyboardOpen": true,
+    "rowCompleteActions": [
+      {
+        "id": "46119566-092d-4fec-947c-e7cc6b0e57e1",
+        "actionType": "KEY_ENTER",
+        "repeatCount": 1
+      }
+    ],
+    "pauseRules": [
+      {
+        "id": "8aacdcf6-3d82-4ada-a6e6-77d4278dc885",
+        "columnName": "1_Coutainers_inside",
+        "autoAction": "NONE",
+        "isEnabled": true,
+        "voiceText": "yes container inside action",
+        "prefixColumn": "1_Action",
+        "isVoiceEnabled": true,
+        "actions": [
+          {
+            "id": "82bb3a9b-fa45-4f9b-8ae3-5367736c5892",
+            "actionType": "KEY_TAB",
+            "repeatCount": 1
+          },
+          {
+            "id": "aa3ac36c-86b4-4024-aefd-2fe41eb92e15",
+            "actionType": "KEY_ENTER",
+            "repeatCount": 1
+          }
+        ]
+      },
+      {
+        "id": "7508441d-00a5-4122-bbfa-6b641e54d1ce",
+        "columnName": "2_Coutainers_out",
+        "autoAction": "NONE",
+        "isEnabled": true,
+        "voiceText": "yes container outside action",
+        "prefixColumn": "2_Action",
+        "isVoiceEnabled": true,
+        "actions": [
+          {
+            "id": "8e2ebbc3-06ac-467c-9062-e114f33526d5",
+            "actionType": "KEY_TAB",
+            "repeatCount": 1
+          },
+          {
+            "id": "9a2f35ae-d976-45e8-bf46-0dd66dd43c33",
+            "actionType": "KEY_ENTER",
+            "repeatCount": 1
+          }
+        ]
+      },
+      {
+        "id": "ba89845f-9094-4690-894d-5858aa0b313b",
+        "columnName": "Contact No",
+        "autoAction": "NONE",
+        "isEnabled": true,
+        "voiceText": "Yes yes posible",
+        "prefixColumn": "Survey_P",
+        "isVoiceEnabled": true,
+        "actions": [
+          {
+            "id": "4a90550c-6a22-4323-a0ba-316aa6b205ed",
+            "actionType": "KEY_TAB",
+            "repeatCount": 1
+          },
+          {
+            "id": "a79102dc-6aaf-4d57-a5ba-eceadf27d96e",
+            "actionType": "KEY_ENTER",
+            "repeatCount": 1
+          }
+        ]
+      },
+      {
+        "id": "fe48696a-0e9d-47c5-9085-432cdd5e5c9b",
+        "columnName": "3_Larva",
+        "autoAction": "NONE",
+        "isEnabled": true,
+        "voiceText": "no mosquito Larvaa action",
+        "prefixColumn": "3_Action",
+        "isVoiceEnabled": true,
+        "actions": [
+          {
+            "id": "fdbc2013-91e3-4498-85d0-956440802ba3",
+            "actionType": "KEY_TAB",
+            "repeatCount": 1
+          },
+          {
+            "id": "843b4c6e-c4e4-4cd9-a5fd-902b3241ea3f",
+            "actionType": "KEY_ENTER",
+            "repeatCount": 1
+          }
+        ]
+      },
+      {
+        "id": "9357b428-7cc3-4f25-914d-800607aaa53f",
+        "columnName": "4_Dry count",
+        "autoAction": "NONE",
+        "isEnabled": true,
+        "voiceText": "yes dry container action",
+        "prefixColumn": "4_Action",
+        "isVoiceEnabled": true,
+        "actions": [
+          {
+            "id": "38a01766-f2f5-4f6f-84be-08ff40a0a955",
+            "actionType": "KEY_TAB",
+            "repeatCount": 1
+          },
+          {
+            "id": "54c497ff-89be-4a4d-a4ce-1e2960526008",
+            "actionType": "KEY_ENTER",
+            "repeatCount": 1
+          }
+        ]
+      },
+      {
+        "id": "9c48495f-7dc4-4aee-bc86-aacd143c57f7",
+        "columnName": "6_drains_larva",
+        "autoAction": "NONE",
+        "isEnabled": true,
+        "voiceText": "no drain larva action",
+        "prefixColumn": "6_Action",
+        "isVoiceEnabled": true,
+        "actions": [
+          {
+            "id": "f08c1815-d315-4573-bd01-bb545ebd4935",
+            "actionType": "KEY_TAB",
+            "repeatCount": 1
+          },
+          {
+            "id": "d9e447fe-6ba2-467f-a91e-cba6204ca646",
+            "actionType": "KEY_ENTER",
+            "repeatCount": 1
+          }
+        ]
+      },
+      {
+        "id": "28d79267-f769-43e8-bbc7-66df6f4cbe7c",
+        "columnName": "8_Soakpit_larva",
+        "autoAction": "NONE",
+        "isEnabled": true,
+        "voiceText": "no sockpit larva action",
+        "prefixColumn": "8_Action",
+        "isVoiceEnabled": true,
+        "actions": [
+          {
+            "id": "d9d25d9f-e139-44d8-ad73-fb632122f5ae",
+            "actionType": "KEY_TAB",
+            "repeatCount": 1
+          },
+          {
+            "id": "2c6b5fa9-c82b-44e6-bb2b-984081cf995c",
+            "actionType": "KEY_ENTER",
+            "repeatCount": 1
+          }
+        ]
+      },
+      {
+        "id": "91217cdd-ccb4-4ed7-ace5-48d2101fa5b9",
+        "columnName": "10_Fever",
+        "autoAction": "NONE",
+        "isEnabled": true,
+        "voiceText": "ferther action needed",
+        "prefixColumn": "Futher Action",
+        "isVoiceEnabled": true,
+        "actions": [
+          {
+            "id": "0c1d54c6-3ccb-48e7-ab90-e5b0e9404438",
+            "actionType": "KEY_ENTER",
+            "repeatCount": 1
+          },
+          {
+            "id": "2f9348f3-d8f6-48f5-9f16-47b9f54aeca2",
+            "actionType": "KEY_ENTER",
+            "repeatCount": 1
+          }
+        ]
+      },
+      {
+        "id": "e0701ccd-ba5c-432a-8612-deca5b590750",
+        "columnName": "Comments",
+        "autoAction": "NONE",
+        "isEnabled": true,
+        "voiceText": "Submit",
+        "prefixColumn": "",
+        "isVoiceEnabled": true,
+        "actions": [
+          {
+            "id": "e92343cb-57b2-4758-976b-a69caa3b0ab3",
+            "actionType": "KEY_ENTER",
+            "repeatCount": 1
+          }
+        ]
+      }
+    ]
+  },
+  "macros": [
+    {
+      "name": "Macro #1 (2 steps)",
+      "isDefault": false,
+      "steps": [
+        {
+          "actionType": "KEY_NEXT_ROW",
+          "targetColumn": "",
+          "delayMs": 200
+        },
+        {
+          "actionType": "KEY_TAB",
+          "targetColumn": "PREV_ROW",
+          "delayMs": 200
+        }
+      ]
+    },
+    {
+      "name": "Standard Bengali Form (5 Fields + Enter)",
+      "isDefault": true,
+      "steps": [
+        {
+          "actionType": "INSERT_FIELD",
+          "targetColumn": "নাম",
+          "delayMs": 250
+        },
+        {
+          "actionType": "KEY_TAB",
+          "targetColumn": "",
+          "delayMs": 200
+        },
+        {
+          "actionType": "INSERT_FIELD",
+          "targetColumn": "পিতার নাম",
+          "delayMs": 250
+        },
+        {
+          "actionType": "KEY_TAB",
+          "targetColumn": "",
+          "delayMs": 200
+        },
+        {
+          "actionType": "INSERT_FIELD",
+          "targetColumn": "পাড়ার নাম",
+          "delayMs": 250
+        },
+        {
+          "actionType": "KEY_TAB",
+          "targetColumn": "",
+          "delayMs": 200
+        },
+        {
+          "actionType": "INSERT_FIELD",
+          "targetColumn": "বাড়ির মোট সদস্য",
+          "delayMs": 250
+        },
+        {
+          "actionType": "KEY_TAB",
+          "targetColumn": "",
+          "delayMs": 200
+        },
+        {
+          "actionType": "INSERT_FIELD",
+          "targetColumn": "মোবাইল নম্বর",
+          "delayMs": 250
+        },
+        {
+          "actionType": "KEY_ENTER",
+          "targetColumn": "",
+          "delayMs": 300
+        },
+        {
+          "actionType": "KEY_NEXT_ROW",
+          "targetColumn": "",
+          "delayMs": 100
+        }
+      ]
+    }
+  ],
+  "filterState": {
+    "column": "",
+    "value": "",
+    "startRowIndex": 0,
+    "multiFilters": []
+  }
+}
